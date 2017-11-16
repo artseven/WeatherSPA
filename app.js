@@ -24,7 +24,7 @@ weatherApp.config(function ($routeProvider) {
 // SERVICES
 weatherApp.service('cityService', function() {
 
-    this.city = "New York";
+    this.city = "Miami";
 })
 // CONTROLLERS
 weatherApp.controller('homeController', [
@@ -57,5 +57,20 @@ weatherApp.controller('forecastController', [
             return new Date(dt*1000);
         };
 }]);
+
+// DIRECTIVES
+weatherApp.directive('weatherReport', function() {
+    return {
+        restrict: 'E',
+        templateUrl: 'directives/weatherReport.html',
+        replace: true,
+        scope: {
+            weatherDay: "=",
+            convertToStandard: "&",
+            convertToDate: "&",
+            dateFormat: "@"
+        }
+    };
+});
 
 
