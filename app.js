@@ -16,12 +16,30 @@ weatherApp.config(function ($routeProvider) {
         });
 });
 
-// CONTROLLERS
-weatherApp.controller('homeController', ['$scope', function ($scope) {
+// SERVICES
+weatherApp.service('cityService', function() {
 
+    this.city = "New York, NY";
+})
+// CONTROLLERS
+weatherApp.controller('homeController', [
+             '$scope','cityService',
+    function ($scope, cityService) {
+
+        $scope.city = cityService.city;
+        $scope.$watch('city', function() {
+            cityService.city = $scope.city;
+        });
 }]);
 
-weatherApp.controller('forecastController', ['$scope', function ($scope) {
+weatherApp.controller('forecastController', [
+             '$scope','$resource','cityService',
+    function ($scope, $resource, cityService) {
+
+        $scope.city = cityService.city;
+
+        $scope.weatherAPI = $resource("http://api.openweathermap.org/data/2.5/forecast/daily?APPID=42cb9aef50660bb49eea27ae7256b0ec")
+        
     
 }]);
 
